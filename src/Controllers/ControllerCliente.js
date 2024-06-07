@@ -39,17 +39,45 @@ module.exports = {
       return res.status(500).send('Erro ao cadastrar cliente');
     }
   }, 
-  async updateCliente(req,res){
+  async updateCliente(req, res) {
+    try {
+      const newData = {
+        cli_nome: req.body.cli_nome,
+        cli_email: req.body.cli_email,
+        cli_tel: req.body.cli_tel
+      };
+
+      await knex('cliente')
+        .where({ cli_cod: req.params.cli_cod }) // Use req.params para acessar os parâmetros da URL
+        .update(newData);
+
+      res.status(200).send('Cliente atualizado com sucesso');
+    } catch (error) {
+      console.error('Erro ao atualizar cliente:', error);
+      res.status(500).send('Erro ao atualizar cliente');
+    }
+  },
+  async deleteCliente(req,res){
     try{
+      let Cliente = knex("cliente").where("cli_cod", req.params.cli_cod).select('cli_nome')
+
+      Cliente.then( async (resultado) => {
+        if (resultado.length > 0) {
+            let nomeDoCliente = resultado[0].cli_nome;
+            await knex("cliente")
+            .where("cli_cod",req.params.cli_cod)
+            .delete();
+            res.send(`A conta de ${nomeDoCliente} foi deletada com sucesso!`).status(200)
+        } else {
+            console.log('Nenhum cliente encontrado com esse código');
+        }
+    }).catch((erro) => {
+        console.error('Erro ao acessar o nome do cliente:', erro);
+    });
 
       
-
-      knex('cliente')
-      .where({cli_cod: req.body.cli_cod})
-      .update();
-
-    }catch (error) {
-      console.error('Erro ao atualizar cliente:', error);
+    }catch(error){
+      console.log("ERRO AO DELETAR CLIENTE",error);
     }
   }
 }
