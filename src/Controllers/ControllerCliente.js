@@ -16,7 +16,7 @@ module.exports = {
       console.log('Dados recebidos:', req.body); // Adiciona um log para verificar o corpo da solicitação
   
       if (!req.body || !req.body.cli_nome || !req.body.cli_email || !req.body.cli_tel) {
-        console.log('Dados incompletos:', req.body); // Adiciona um log para dados incompletos
+        console.log('Dados incompletos:', req.body);
         return res.status(400).send('Dados incompletos');
       }
   
