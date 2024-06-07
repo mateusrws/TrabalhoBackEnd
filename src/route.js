@@ -3,6 +3,7 @@ const route = express.Router();
 const ControllerRaiz = require('./Controllers/ControllerRaiz');
 const ControllerCliente = require('./Controllers/ControllerCliente');
 const ControllerProduto = require('./Controllers/ControllerProduto');
+const ControllerVendas = require('./Controllers/ControllerVendas');
 
 route.get('/', ControllerRaiz.raiz);
 
@@ -16,6 +17,10 @@ route.delete('/cliente/:cli_cod', ControllerCliente.deleteCliente);
 route.get('/produto', ControllerProduto.getProdutos);
 route.post('/produto', ControllerProduto.createProduto);
 route.put('/produto/:pro_cod', ControllerProduto.updateProduto);
-route.delete('/produto/:pro_cod', ControllerProduto.deleteProduto); 
+route.delete('/produto/:pro_cod', ControllerProduto.deleteProduto);
+
+// Vendas
+route.get('/vendas', ControllerVendas.getVendas);
+route.post('/vendas', ControllerVendas.createVendas);
 
 module.exports = route;
