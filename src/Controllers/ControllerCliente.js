@@ -15,7 +15,7 @@ module.exports = {
     try {
       console.log('Dados recebidos:', req.body); // Adiciona um log para verificar o corpo da solicitação
   
-      if (!req.body || !req.body.cli_nome || !req.body.cli_email || !req.body.cli_tel) {
+      if (!req.body || !req.body.cli_nome || !req.body.cli_email || !req.body.cli_tel || !req.body.cli_password) {
         console.log('Dados incompletos:', req.body);
         return res.status(400).send('Dados incompletos');
       }
@@ -23,7 +23,8 @@ module.exports = {
       await knex('cliente').insert({
         cli_nome: req.body.cli_nome,
         cli_email: req.body.cli_email,
-        cli_tel: req.body.cli_tel
+        cli_tel: req.body.cli_tel,
+        cli_password: req.body.cli_password
       });
   
       const resp = {
