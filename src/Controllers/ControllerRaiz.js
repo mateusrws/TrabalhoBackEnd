@@ -1,6 +1,90 @@
 module.exports = {
   async raiz(req,res){
-    let resp = 'RESPONDEU';
+    let resp = `<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BACK END - MAIN</title>
+</head>
+<body>
+  <h1>BACK END - INFORMAÇÕES</h1>
+
+  <hr>
+  <details>
+    <summary>ROTAS</summary>
+    <br><br><br>
+
+    <hr>
+
+    <h2>CLIENTE</h2>
+    <hr>
+    <h3>GET - /cliente || Retorna uma lista com todos os clientes</h3>
+    <h3>GET - /cliente/:cli_pass || Retorna um cliente específico</h3>
+    <h3>POST - /cliente || Cria uma conta de um novo cliente</h3>
+    <h3>PUT - /cliente/:cli_cod || Atualiza dados de um cliente já existente</h3>
+    <h3>DELETE - /cliente/:cli_cod || Deleta o perfil de um cliente já existente</h3>
+
+    <hr>
+
+    <h2>PRODUTOS</h2>
+
+    <hr> 
+    <h3>GET - /produtos || Retorna uma lista com todos os produtos existentes</h3>
+    <h3>GET - /produto/:pro_cod || Retorna um produto esécífico</h3>
+    <h3>POST - /produtos || Cadastra um novo produto no sistema</h3>
+    <h3>PUT - /produto/:pro_cod || Atualiza dados de um produto já existente</h3>
+    <h3>DELETE - /produto/:pro_cod || Deleta um produto já existente</h3>
+
+    <hr>
+
+    <h2>VENDAS</h2>
+    <hr>
+    <h3>GET - /vendas/:cli_cod || Retorna uma lista de todas a vendas de um cliente específico</h3>
+    <h3>POST - /vendas || Cadastra uma venda</h3>
+    <hr>
+    <h2>Login</h2>
+    <hr>
+    <h3>POST - /login || Faz o login</h3>
+  </details>
+  
+  <details>
+    <summary>TABELAS</summary>
+
+    <h2>CLIENTES</h2>
+
+    <hr>
+    <h3>CLI_COD - serial PRIMARY KEY</h3>
+    <h3>CLI_NOME - VARCHAR(20) NOT NULL</h3>
+    <h3>CLI_EMAIL - VARCHAR(100) NOT NULL</h3>
+    <h3>CLI_TEL - VARCHAR(20) NOT NULL</h3>
+    <hr>
+
+    <h2>PRODUTOS</h2>
+
+    <hr>
+    <h3>PRO_COD - serial PRIMARY KEY</h3>
+    <h3>PRO_NOME - VARCHAR NOT NULL</h3>
+    <h3>PRO_DESCRI - TEXT NOT NULL</h3>
+    <h3>PRO_FABRICANTE VARCHAR(255) NOT NULL</h3>
+    <h3>PRO_QTDA - INTEGER</h3>
+    <h3>PRO_PRECO - NUMERIC(10,2)</h3>
+    <hr>
+
+    <h2>VENDA</h2>
+    
+    <hr>
+    <h3>CLI_COD - INTEGER NOT NULL</h3>
+    <h3>PRO_COD - INTEGER NOT NULL</h3>
+    <h3>VEN_COD - serial PRIMARY KEY</h3>
+    <h3>VEN_DATA - TIMESTAMP NOT NULL CURRENT_TIMESTAMP</h3>
+    <h3>VEN_VALOR - DECIMAL(10,2)</h3>
+
+  </details>
+
+
+</body>
+</html>`;
 
     res.send(resp).status(200);
   }
