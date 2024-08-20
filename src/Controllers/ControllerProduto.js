@@ -76,24 +76,26 @@ module.exports = {
 
   async deleteProduto(req, res) {
     try {
-      const { pro_cod } = req.params;
+        const { pro_cod } = req.params;
 
-      const produto = await knex('produtos')
-        .where({ pro_cod })
-        .first();
+        // Primeiro, exclua as vendas associadas
+        await knex('vendas')
+            .where({ pro_cod })
+            .del();
 
-      if (!produto) {
-        return res.status(404).json({ error: 'Produto não encontrado' });
-      }
+        // Agora, exclua o produto
+        const deletedRows = await knex('produtos')
+            .where({ pro_cod })
+            .del();
 
-      await knex('produtos')
-        .where({ pro_cod })
-        .delete();
+        if (deletedRows === 0) {
+            return res.status(404).json({ error: 'Produto não encontrado' });
+        }
 
-      return res.status(200).json({ message: `O produto ${produto.pro_nome} foi deletado com sucesso!` });
+        return res.status(200).json({ message: 'Produto deletado com sucesso' });
     } catch (error) {
-      console.error('Erro ao deletar produto:', error);
-      return res.status(500).json({ error: 'Erro ao deletar produto' });
+        console.error('Erro ao deletar produto:', error);
+        return res.status(500).json({ error: 'Erro ao deletar produto' });
     }
   }
 };
